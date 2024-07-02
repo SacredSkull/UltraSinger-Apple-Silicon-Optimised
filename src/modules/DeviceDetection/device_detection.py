@@ -9,7 +9,7 @@ from modules.console_colors import ULTRASINGER_HEAD, red_highlighted, blue_highl
 tensorflow_gpu_supported = False
 pytorch_gpu_supported = False
 
-def check_gpu_support() -> tuple[bool, bool]:
+def check_gpu_support() -> tuple[str, str]:
     """Check worker device (e.g cuda or cpu) supported by tensorflow and pytorch"""
 
     print(f"{ULTRASINGER_HEAD} Checking GPU support for {blue_highlighted('tensorflow')} and {blue_highlighted('pytorch')}.")
@@ -26,7 +26,7 @@ def check_gpu_support() -> tuple[bool, bool]:
         if os.name == 'nt':
             print(f"{ULTRASINGER_HEAD} {blue_highlighted('tensorflow')} - versions above 2.10 dropped GPU support for Windows, refer to the readme for possible solutions.")
 
-    pytorch_gpu_supported = torch.cuda.is_available()
+    pytorch_gpu_supported = torch.cuda.is_available() or torch.has_mps
     if not pytorch_gpu_supported:
         print(
             f"{ULTRASINGER_HEAD} {blue_highlighted('pytorch')} - there are no {red_highlighted('cuda')} devices available -> Using {red_highlighted('cpu')}."
@@ -34,4 +34,4 @@ def check_gpu_support() -> tuple[bool, bool]:
     else:
         print(f"{ULTRASINGER_HEAD} {blue_highlighted('pytorch')} - using {red_highlighted('cuda')} gpu.")
 
-    return 'cuda' if tensorflow_gpu_supported else 'cpu', 'cuda' if pytorch_gpu_supported else 'cpu'
+    return 'gpu' if tensorflow_gpu_supported else 'cpu', 'mps' if pytorch_gpu_supported else 'cpu'

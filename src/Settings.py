@@ -32,7 +32,7 @@ class Settings:
     crepe_step_size = 10 # in miliseconds
 
     # Device
-    pytorch_device = 'cpu'  # cpu|cuda
+    pytorch_device = 'mps'  # cpu|cuda
     tensorflow_device = 'cpu'  # cpu|cuda
     force_cpu = False
     force_whisper_cpu = False

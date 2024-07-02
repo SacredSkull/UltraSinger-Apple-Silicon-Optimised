@@ -520,7 +520,7 @@ def transcribe_audio() -> (str, list[TranscribedData]):
         transcribed_data, detected_language = transcribe_with_whisper(
             settings.processing_audio_path,
             settings.whisper_model,
-            device,
+            "cpu",
             settings.whisper_align_model,
             settings.whisper_batch_size,
             settings.whisper_compute_type,
